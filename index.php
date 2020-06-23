@@ -133,7 +133,7 @@ $user_name = 'Дима'; // укажите здесь ваше имя
             <!--заполните этот список из массива категорий-->
             <?php foreach($lots as $key => $val): ?>
             <li class="nav__item">
-                <a href="pages/all-lots.html"><?=$val['category']; ?></a>
+                <a href="pages/all-lots.html">123</a>
             </li>
             <?php endforeach; ?>
         </ul>
