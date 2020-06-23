@@ -92,7 +92,7 @@ $user_name = 'Дима'; // укажите здесь ваше имя
         <ul class="nav__list container">
             <!--заполните этот список из массива категорий-->
             <li class="nav__item">
-                <a href="pages/all-lots.html">Название категории</a>
+                <a href="pages/all-lots.html">123</a>
             </li>
         </ul>
     </nav>
