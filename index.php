@@ -117,7 +117,7 @@ $user_name = 'Дима'; // укажите здесь ваше имя
                             <span class="lot__cost">цена<b class="rub">р</b></span>
                         </div>
                         <div class="lot__timer timer">
-                            12:23
+                            12:20
                         </div>
                     </div>
                 </div>
