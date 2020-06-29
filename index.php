@@ -1,6 +1,17 @@
 <?php
 $is_auth = rand(0, 1);
 
+function format_price ($num) {
+    $num = ceil($num);
+    if ($num < 1000) {
+        $num = $num . " ₽";
+        return $num;
+    }
+    $num = number_format($num, 0, ',', ' ');
+    $num = $num . " ₽";
+    return $num;
+}
+
 $user_name = 'Дима'; // укажите здесь ваше имя
 ?>
 <!DOCTYPE html>
@@ -115,7 +126,7 @@ $user_name = 'Дима'; // укажите здесь ваше имя
                     <div class="lot__state">
                         <div class="lot__rate">
                             <span class="lot__amount">Стартовая цена</span>
-                            <span class="lot__cost"><?=$lot['price']; ?>₽</span>
+                            <span class="lot__cost"><?= format_price($lot['price']); ?></span>
                         </div>
                         <div class="lot__timer timer">
                             12:23
