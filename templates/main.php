@@ -1,34 +1,8 @@
-<?php
-$is_auth = rand(0, 1);
-
-function format_price ($num) {
-    $num = ceil($num);
-    if ($num < 1000) {
-        $num = $num . " ₽";
-        return $num;
-    }
-    $num = number_format($num, 0, ',', ' ');
-    $num = $num . " ₽";
-    return $num;
-}
-
-$user_name = 'Дима'; // укажите здесь ваше имя
-?>
-        <?php if($is_auth == 1): ?>
-            <div class="user-menu__logged">
-                <p><?=$user_name; ?></p>
-                <a class="user-menu__bets" href="pages/my-bets.html">Мои ставки</a>
-                <a class="user-menu__logout" href="#">Выход</a>
-        <?php else: ?>
-            <ul class="user-menu__list">
-    <li class="user-menu__item">
-      <a href="#">Регистрация</a>
-    </li>
-    <li class="user-menu__item">
-      <a href="#">Вход</a>
-    </li>
-  </ul>
-        <?php endif; ?>
+<main class="container">
+    <section class="promo">
+        <h2 class="promo__title">Нужен стафф для катки?</h2>
+        <p class="promo__text">На нашем интернет-аукционе ты найдёшь самое эксклюзивное сноубордическое и горнолыжное снаряжение.</p>
+        <ul class="promo__list">
             <?php 
                 $categories = ["Ботинки", "Одежда", "Инструменты", "Разное"];
                 $lots = [
@@ -70,6 +44,17 @@ $user_name = 'Дима'; // укажите здесь ваше имя
                     ]
                 ];
             ?>
+            <li class="promo__item promo__item--boards">
+                <a class="promo__link" href="pages/all-lots.html">Имя категории</a>
+            </li>
+        </ul>
+    </section>
+    <section class="lots">
+        <div class="lots__header">
+            <h2>Открытые лоты</h2>
+        </div>
+        <ul class="lots__list">
+            <!--заполните этот список из массива с товарами-->
             <?php foreach ($lots as $lot): ?>
             <li class="lots__item lot">
                 <div class="lot__image">
@@ -90,9 +75,6 @@ $user_name = 'Дима'; // укажите здесь ваше имя
                 </div>
             </li>
             <?php endforeach; ?>
-
-            <?php foreach($categories as $category): ?>
-            <li class="nav__item">
-                <a href="pages/all-lots.html"><?=$category; ?></a>
-            </li>
-            <?php endforeach; ?>
+        </ul>
+    </section>
+</main>
