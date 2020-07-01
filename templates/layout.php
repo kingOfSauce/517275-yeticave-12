@@ -1,18 +1,7 @@
 <?php
 $is_auth = rand(0, 1);
 
-function format_price ($num) {
-    $num = ceil($num);
-    if ($num < 1000) {
-        $num = $num . " ₽";
-        return $num;
-    }
-    $num = number_format($num, 0, ',', ' ');
-    $num = $num . " ₽";
-    return $num;
-}
-
-$user_name = 'Дима'; // укажите здесь ваше имя
+$user_name; // укажите здесь ваше имя
 ?>
 <!DOCTYPE html>
 <html lang="ru">

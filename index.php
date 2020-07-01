@@ -1,5 +1,15 @@
 <?php
     require ('helpers.php');
+    function format_price ($num) {
+        $num = ceil($num);
+        if ($num < 1000) {
+            $num = $num . " ₽";
+            return $num;
+        }
+        $num = number_format($num, 0, ',', ' ');
+        $num = $num . " ₽";
+        return $num;
+    }
     $categories = ["Ботинки", "Одежда", "Инструменты", "Разное"];
     $lots = [
         [
@@ -39,7 +49,7 @@
             'URL' => 'img/lot-6.jpg'           
         ]
     ];
-    $content = include_template('main.php', ['$data' => ['$categories', '$lots']]);
-    $page = include_template('layout.php', ['main' => $content, 'title' => 'Главная']);
+    $content = include_template('main.php', ['categories' => $categories, 'lots' => $lots]);
+    $page = include_template('layout.php', ['main' => $content, 'title' => 'Главная', 'user_name' => 'Дима', 'categories' => $categories]);
     echo $page;
 ?>
