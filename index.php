@@ -64,10 +64,10 @@
         $hours = floor($diff / 3600);
         $mins = floor((($exp_stamp - $hours * 3600) - $cur_stamp) / 60);
         if ($hours < 10) {
-            $hours = "0" . $hours;
+            $hours = str_pad($hours, 2, "0", STR_PAD_LEFT);
         }
         if ($mins < 10) {
-            $mins = "0" . $mins;
+            $mins = str_pad($mins, 2, "0", STR_PAD_LEFT);
         }
         $rest_of_time = [
             'hours' => $hours,

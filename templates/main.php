@@ -29,18 +29,8 @@
                             <span class="lot__amount">Стартовая цена</span>
                             <span class="lot__cost"><?= htmlspecialchars(format_price($lot['price'])); ?></span>
                         </div>
-                        <div class="lot__timer timer
-                        <?php 
-                           $expiration_time = count_date($lot['expiration date']);
-                           if($expiration_time['hours'] == 0): 
-                        ?>
-                        timer--finishing
-                           <? endif; ?>
-                        ">
-                            <?php 
-                                $expiration_time = count_date($lot['expiration date']);
-                                echo $expiration_time['hours'] . ":" . $expiration_time['minutes'];
-                            ?>
+                        <div class="lot__timer timer<?php $exp_time = count_date($lot['expiration date']); echo ($exp_time['hours'] == 0) ? " timer--finishing" : " " ?>">
+                            <?= $exp_time['hours'] . ":" . $exp_time['minutes']; ?>
                         </div>
                     </div>
                 </div>
