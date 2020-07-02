@@ -1,4 +1,4 @@
-     <section class="promo">
+    <section class="promo">
         <h2 class="promo__title">Нужен стафф для катки?</h2>
         <p class="promo__text">На нашем интернет-аукционе ты найдёшь самое эксклюзивное сноубордическое и горнолыжное снаряжение.</p>
         <ul class="promo__list">  
@@ -29,8 +29,9 @@
                             <span class="lot__amount">Стартовая цена</span>
                             <span class="lot__cost"><?= htmlspecialchars(format_price($lot['price'])); ?></span>
                         </div>
-                        <div class="lot__timer timer">
-                            12:23
+                        <?php $exp_time = count_date($lot['expiration date']); ?>
+                        <div class="lot__timer timer<?= ($exp_time['hours'] == 0) ? " timer--finishing" : ""; ?>">
+                            <?= $exp_time['hours'] . ":" . $exp_time['minutes']; ?>
                         </div>
                     </div>
                 </div>
