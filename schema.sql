@@ -1,8 +1,8 @@
 CREATE DATABASE YetiCave
     DEFAULT CHARACTER SET utf8
-    DEFAULT COLLATE utf8_general_ci;
+    DEFAULT COLLATE UTF8_GENERAL_CI;
 
-USE YetiCave
+USE YetiCave;
 
 CREATE TABLE category (
     category_name CHAR(64) UNIQUE,
@@ -10,22 +10,22 @@ CREATE TABLE category (
 );
 
 CREATE TABLE lot (
-    date_of_create DATETIME(128),
+    date_of_create DATETIME(6),
     title CHAR(128),
     description TEXT,
-    img CHAR(256),
+    img CHAR(64),
     start_price INT,
-    expiration_date DATE(128),
+    expiration_date DATE,
     bet_step INT
 );
 
 CREATE TABLE bet (
-   date DATETIME(128),
+   date DATETIME(6),
    price INT 
 ); 
 
 CREATE TABLE user (
-    date_of_registration DATETIME(128),
+    date_of_registration DATETIME(6),
     email VARCHAR(128) UNIQUE,
     name CHAR(64) UNIQUE,
     password CHAR(64) UNIQUE,
