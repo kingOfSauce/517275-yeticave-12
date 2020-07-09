@@ -5,4 +5,4 @@
 -- INSERT IGNORE INTO category (id, name, symbol_code) VALUES (2, "Шапки", "hats");
 -- INSERT IGNORE INTO category (name, symbol_code) VALUES ("Куртки", "jackets");
 -- INSERT IGNORE INTO category (id, name, symbol_code) VALUES (2, "Штаны", "pants");
-INSERT INTO category (name, symbol_code) VALUES ("Обувь", "boots");
+INSERT INTO category (id, name, symbol_code) VALUES (3, "Обувь", "boots");
