@@ -10,6 +10,15 @@ CREATE TABLE IF NOT EXISTS category (
     symbol_code VARCHAR(128) UNIQUE
 );
 
+CREATE TABLE IF NOT EXISTS user (
+    id INT PRIMARY KEY,
+    date_of_registration DATETIME(6),
+    email VARCHAR(128) UNIQUE,
+    name VARCHAR(128) UNIQUE,
+    password VARCHAR(128) UNIQUE,
+    contacts VARCHAR(128)
+);
+
 CREATE TABLE IF NOT EXISTS lot (
     id INT PRIMARY KEY,
     date_of_create DATETIME(6),
@@ -37,11 +46,3 @@ CREATE TABLE IF NOT EXISTS bet (
     FOREIGN KEY (lot_id) REFERENCES lot(id)
 ); 
 
-CREATE TABLE IF NOT EXISTS user (
-    id INT PRIMARY KEY,
-    date_of_registration DATETIME(6),
-    email VARCHAR UNIQUE,
-    name VARCHAR UNIQUE,
-    password VARCHAR UNIQUE,
-    contacts VARCHAR(128)
-);
