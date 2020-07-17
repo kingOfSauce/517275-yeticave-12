@@ -31,8 +31,8 @@ SELECT * FROM category;
 -- Get the latest, open lots. Each lot should include a name, starting price, image link, current price, category name
 SELECT title, start_price, img, c.name AS category_name, b.price FROM lot l JOIN category c ON l.category_id = c.id JOIN bet b WHERE date_of_create < expiration_date && expiration_date > NOW() AND winner_id IS NULL GROUP BY l.id ORDER BY b.date DESC;
 -- show the lot by its id. Also get the name of the category to which the lot belongs.
-SELECT l.id, date_of_create, title, description, img, start_price, bet_step, c.name FROM lot l JOIN category c ON l.category_id = c.id WHERE l.category_id = 2;
+SELECT l.id, date_of_create, title, description, img, start_price, bet_step, c.name FROM lot l JOIN category c ON l.category_id = c.id WHERE l.id = 2;
 -- update the name of the lot by its identifier
 UPDATE lot SET title = 'Супер куртка для лыж' WHERE id = 2;
 -- get a list of bids for a lot by its identifier, sorted by date
-SELECT l.id AS lot_id,  title, price FROM bet b JOIN lot l ON b.lot_id = l.id WHERE l.id IN (2, 3, 4) ORDER BY l.date_of_create DESC;
+SELECT price FROM bet b WHERE b.lot_id = 4 ORDER BY b.date DESC;
