@@ -30,7 +30,7 @@
             'title' => 'Крепления Union Contact Pro 2015 года размер L/XL',
             'category' => 'Крепления',
             'price' => '8000',
-            'URL' => '	img/lot-3.jpg',
+            'URL' => 'img/lot-3.jpg',
             'expiration date' => '2020-07-04'
         ],
         [
@@ -69,7 +69,6 @@
             'hours' => $hours,
             'minutes' => $mins
         ];
-        // return $rest_of_time [0] . ":" .$rest_of_time[1];
         return $rest_of_time;
     }
 
