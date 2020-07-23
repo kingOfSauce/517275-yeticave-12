@@ -56,17 +56,17 @@ $user_name; // укажите здесь ваше имя
         <ul class="nav__list container">
             <!--заполните этот список из массива категорий-->
             <?php 
-            $con = mysqli_connect("localhost", "root", "root", "yeticave");
-            if ($con == false) {
-                echo "Ошибка подключения к БД" . mysqli_connect_error();
-            }
-            else {
-                // echo "Подключение прошло успешно";
-                $categories_sql = "SELECT * FROM category";
-                $result_categories = mysqli_query($con, $categories_sql);
-                $categories_ar = mysqli_fetch_all($result_categories, MYSQLI_ASSOC);
-            }
-            foreach($categories_ar as $category): ?>
+            // $con = mysqli_connect("localhost", "root", "root", "yeticave");
+            // if ($con == false) {
+            //     echo "Ошибка подключения к БД" . mysqli_connect_error();
+            // }
+            // else {
+            //     // echo "Подключение прошло успешно";
+            //     $categories_sql = "SELECT * FROM category";
+            //     $result_categories = mysqli_query($con, $categories_sql);
+            //     $categories_ar = mysqli_fetch_all($result_categories, MYSQLI_ASSOC);
+            // }
+            foreach($categories_list as $category): ?>
             <li class="nav__item">
                 <a href="pages/all-lots.html"><?=$category['name']; ?></a>
             </li>

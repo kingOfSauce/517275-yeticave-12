@@ -72,7 +72,36 @@
         return $rest_of_time;
     }
 
-    $content = include_template('main.php', ['categories' => $categories, 'lots' => $lots]);
-    $page = include_template('layout.php', ['main' => $content, 'title' => 'Главная', 'user_name' => 'Дима', 'categories' => $categories]);
+    function connection () {
+        $con = mysqli_connect("localhost", "root", "root", "yeticave");
+        if ($con == false) {
+            echo "Ошибка подключения к БД" . mysqli_connect_error();
+        }
+        else {
+            // echo "Подключение прошло успешно";
+            mysqli_set_charset($con, "utf8mb4_unicode_ci");
+            return $con;
+        }
+    }
+    $con = connection();
+    $lots_sql = "SELECT title, expiration_date, start_price, img, c.name AS category_name, b.price FROM lot l JOIN category c ON l.category_id = c.id JOIN bet b WHERE date_of_create < expiration_date && expiration_date > NOW() AND winner_id IS NULL GROUP BY l.id ORDER BY b.date DESC";
+    $categories_sql = "SELECT * FROM category";
+   
+    function get_lots ($con, $sql) {
+        $result_lots = mysqli_query($con, $sql);
+        $rows = mysqli_fetch_all($result_lots, MYSQLI_ASSOC);
+        return $rows;
+    }
+    $lots_list = get_lots($con, $lots_sql);
+    
+    function get_categories ($con, $sql) {
+        $result_categories = mysqli_query($con, $sql);
+        $categories_ar = mysqli_fetch_all($result_categories, MYSQLI_ASSOC);
+        return $categories_ar;
+    }
+    $categories_list = get_categories($con, $categories_sql);
+
+    $content = include_template('main.php', ['categories_ar' => $categories_list, 'lost_list' => $lots_list]);
+    $page = include_template('layout.php', ['main' => $content, 'title' => 'Главная', 'user_name' => 'Дима', 'categories_list' => $categories_list]);
     echo $page;
 ?>

@@ -9,8 +9,8 @@ INSERT INTO user (id, date_of_registration, email, name, password, contacts) VAL
 INSERT INTO user (id, date_of_registration, email, name, password, contacts) VALUES (3, "2018-09-21", "mail@mail.ru", "Олег", "top_top_secret", "9812534");
 
 -- add data to category table
-INSERT INTO category (id, name, symbol_code) VALUES (1, "Крепления", "fastening");
-INSERT INTO category (id, name, symbol_code) VALUES (2, "Куртки", "jackets");
+INSERT INTO category (id, name, symbol_code) VALUES (1, "Крепления", "attachment");
+INSERT INTO category (id, name, symbol_code) VALUES (2, "Куртки", "clothing");
 INSERT INTO category (id, name, symbol_code) VALUES (3, "Доски и лыжи", "boards");
 INSERT INTO category (id, name, symbol_code) VALUES (4, "Обувь", "boots");
 
