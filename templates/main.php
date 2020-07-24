@@ -3,22 +3,7 @@
         <p class="promo__text">На нашем интернет-аукционе ты найдёшь самое эксклюзивное сноубордическое и горнолыжное снаряжение.</p>
         <ul class="promo__list">  
         <?php
-        // $con = mysqli_connect("localhost", "root", "root", "yeticave");
-        // if ($con == false) {
-        //     echo "Ошибка подключения к БД" . mysqli_connect_error();
-        // }
-        // else {
-        //     //echo "Подключение прошло успешно";
-        //     mysqli_set_charset($con, "utf8mb4_unicode_ci");
-        //     $lots_sql = "SELECT title, expiration_date, start_price, img, c.name AS category_name, b.price FROM lot l JOIN category c ON l.category_id = c.id JOIN bet b WHERE date_of_create < expiration_date && expiration_date > NOW() AND winner_id IS NULL GROUP BY l.id ORDER BY b.date DESC";
-        //     $result_lots = mysqli_query($con, $lots_sql);
-        //     $rows = mysqli_fetch_all($result_lots, MYSQLI_ASSOC);
-        //     $categories_sql = "SELECT * FROM category";
-        //     $result_categories = mysqli_query($con, $categories_sql);
-        //     $categories_ar = mysqli_fetch_all($result_categories, MYSQLI_ASSOC);
-        // }
-        
-        foreach ($categories_ar as $category): ?>  
+        foreach ($categories_list as $category): ?>  
             <li class="promo__item promo__item--<?= $category['symbol_code']; ?>">
                 <a class="promo__link" href="pages/all-lots.html"><?= htmlspecialchars($category['name']); ?></a>
             </li>
@@ -31,7 +16,7 @@
         </div>
         <ul class="lots__list">
             <!--заполните этот список из массива с товарами-->
-            <?php foreach ($lost_list as $lot): ?>
+            <?php foreach ($lots_list as $lot): ?>
             <li class="lots__item lot">
                 <div class="lot__image">
                     <img src="<?=htmlspecialchars($lot['img']); ?>" width="350" height="260" alt="">
