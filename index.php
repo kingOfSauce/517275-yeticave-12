@@ -84,42 +84,30 @@
             return $con;
         }
     }
+    
     $con = connection();
 
-    // function get_lots ($con) {
-    //     $sql = "SELECT title, expiration_date, start_price, img, c.name AS category_name, b.price FROM lot l JOIN category c ON l.category_id = c.id JOIN bet b WHERE date_of_create < expiration_date && expiration_date > NOW() AND winner_id IS NULL GROUP BY l.id ORDER BY b.date DESC";
-    //     $result_lots = mysqli_query($con, $sql);
-    //     $rows = mysqli_fetch_all($result_lots, MYSQLI_ASSOC);
-    //     return $rows;
-    // }
-    $lots_sql = "SELECT title, expiration_date, start_price, img, c.name AS category_name, b.price FROM lot l JOIN category c ON l.category_id = c.id JOIN bet b WHERE date_of_create < expiration_date && expiration_date > NOW() AND winner_id IS NULL GROUP BY l.id ORDER BY b.date DESC";
-    $categories_sql = "SELECT * FROM category";
-    
-    $stmt_1 =  db_get_prepare_stmt($con, $lots_sql);
-    mysqli_stmt_execute($stmt_1);
-    $res = mysqli_stmt_get_result($stmt_1);
-    $lots_list = mysqli_fetch_all($res, MYSQLI_ASSOC);
+    function get_lots ($con) {
+        $lots_sql = "SELECT title, expiration_date, start_price, img, c.name AS category_name, b.price FROM lot l JOIN category c ON l.category_id = c.id JOIN bet b WHERE date_of_create < expiration_date && expiration_date > NOW() AND winner_id IS NULL GROUP BY l.id ORDER BY b.date DESC";
+        $stmt_1 =  db_get_prepare_stmt($con, $lots_sql);
+        mysqli_stmt_execute($stmt_1);
+        $res = mysqli_stmt_get_result($stmt_1);
+        $lots_list = mysqli_fetch_all($res, MYSQLI_ASSOC);
+        return $lots_list;
+    }
 
-    $stmt_2 = db_get_prepare_stmt($con, $categories_sql);
-    mysqli_stmt_execute($stmt_2);
-    $res = mysqli_stmt_get_result($stmt_2);
-    $categories_list = mysqli_fetch_all($res, MYSQLI_ASSOC);
+    $lots_list = get_lots($con);
 
-    // function get_lots ($con, $sql) {
-    //     $result_lots = mysqli_query($con, $sql);
-    //     $rows = mysqli_fetch_all($result_lots, MYSQLI_ASSOC);
-    //     return $rows;
-    // }
+    function get_categories ($con) {
+        $categories_sql = "SELECT * FROM category";
+        $stmt_2 = db_get_prepare_stmt($con, $categories_sql);
+        mysqli_stmt_execute($stmt_2);
+        $res = mysqli_stmt_get_result($stmt_2);
+        $categories_list = mysqli_fetch_all($res, MYSQLI_ASSOC);
+        return $categories_list;
+    }
 
-    // $lots_list = get_lots($con, $prepare_sql_lots);
-    
-    // function get_categories ($con) {
-    //     $sql = "SELECT * FROM category";
-    //     $result_categories = mysqli_query($con, $sql);
-    //     $categories_ar = mysqli_fetch_all($result_categories, MYSQLI_ASSOC);
-    //     return $categories_ar;
-    // }
-    // $categories_list = get_categories($con);
+    $categories_list = get_categories($con);
 
     $content = include_template('main.php', ['categories_list' => $categories_list, 'lots_list' => $lots_list]);
     $page = include_template('layout.php', ['main' => $content, 'title' => 'Главная', 'user_name' => 'Дима', 'categories_list' => $categories_list]);
