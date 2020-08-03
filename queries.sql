@@ -9,16 +9,16 @@ INSERT INTO user (id, date_of_registration, email, name, password, contacts) VAL
 INSERT INTO user (id, date_of_registration, email, name, password, contacts) VALUES (3, "2018-09-21", "mail@mail.ru", "Олег", "top_top_secret", "9812534");
 
 -- add data to category table
-INSERT INTO category (id, name, symbol_code) VALUES (1, "Шапки", "hats");
-INSERT INTO category (id, name, symbol_code) VALUES (2, "Куртки", "jackets");
-INSERT INTO category (id, name, symbol_code) VALUES (3, "Штаны", "pants");
+INSERT INTO category (id, name, symbol_code) VALUES (1, "Крепления", "attachment");
+INSERT INTO category (id, name, symbol_code) VALUES (2, "Куртки", "clothing");
+INSERT INTO category (id, name, symbol_code) VALUES (3, "Доски и лыжи", "boards");
 INSERT INTO category (id, name, symbol_code) VALUES (4, "Обувь", "boots");
 
 -- add data to lot table
-INSERT INTO lot (id, date_of_create, title, description, img, start_price, expiration_date, bet_step, category_id, user_id) VALUES (1, "2016-05-26", "Ботинки для лыж", "Ботинки для горых лыж средней ценовой категории", "img", "2600", "2020-12-31", "200", 4, 2);
-INSERT INTO lot (id, date_of_create, title, description, img, start_price, expiration_date, bet_step, category_id, user_id) VALUES (2, "2017-05-09", "Куртка для лыж", "Куртка для горых лыж средней ценовой категории", "img", "5600", "2020-11-25", "400", 2, 1);
-INSERT INTO lot (id, date_of_create, title, description, img, start_price, expiration_date, bet_step, category_id, user_id) VALUES (3, "2018-03-13", "Штаны для лыж", "Штаны для горых лыж средней ценовой категории", "img", "4600", "2020-09-27", "150", 3, 2);
-INSERT INTO lot (id, date_of_create, title, description, img, start_price, expiration_date, bet_step, category_id, user_id) VALUES (4, "2020-01-13", "Шапка для лыж", "Шапка для горых лыж средней ценовой категории", "img", "1000", "2020-08-17", "100", 1, 3);
+INSERT INTO lot (id, date_of_create, title, description, img, start_price, expiration_date, bet_step, category_id, user_id) VALUES (1, "2016-05-26", "Ботинки для сноуборда DC Mutiny Charocal", "Ботинки для горых лыж средней ценовой категории", "img/lot-4.jpg", "10999", "2020-12-31", "200", 4, 2);
+INSERT INTO lot (id, date_of_create, title, description, img, start_price, expiration_date, bet_step, category_id, user_id) VALUES (2, "2017-05-09", "Куртка для сноуборда DC Mutiny Charocal", "Куртка для горых лыж средней ценовой категории", "img/lot-5.jpg", "7500", "2020-11-25", "400", 2, 1);
+INSERT INTO lot (id, date_of_create, title, description, img, start_price, expiration_date, bet_step, category_id, user_id) VALUES (3, "2018-03-13", "2014 Rossignol District Snowboard", "Доска для сноуборда средней ценовой категории", "img/lot-1.jpg", "10999", "2020-09-27", "150", 3, 2);
+INSERT INTO lot (id, date_of_create, title, description, img, start_price, expiration_date, bet_step, category_id, user_id) VALUES (4, "2020-01-13", "Крепления Union Contact Pro 2015 года размер L/XL", "Крепления средней ценовой категории", "img/lot-3.jpg", "8000", "2020-08-17", "100", 1, 3);
 
 -- add data to bet table
 INSERT INTO bet (id, user_id, date, price, lot_id) VALUES (1, 1, "2020-01-24 6:10", "2800", 3);
