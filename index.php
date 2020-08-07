@@ -57,6 +57,7 @@
     ];
 
     date_default_timezone_set('Europe/Moscow');
+    
     function count_date ($exp_date) {
         $exp_stamp = strtotime($exp_date);
         $cur_stamp = strtotime("now");
@@ -88,7 +89,7 @@
     $con = connection();
 
     function get_lots ($con) {
-        $lots_sql = "SELECT title, expiration_date, start_price, img, c.name AS category_name, b.price FROM lot l JOIN category c ON l.category_id = c.id JOIN bet b WHERE date_of_create < expiration_date && expiration_date > NOW() AND winner_id IS NULL GROUP BY l.id ORDER BY b.date DESC";
+        $lots_sql = "SELECT l.id, title, expiration_date, start_price, img, c.name AS category_name, b.price FROM lot l JOIN category c ON l.category_id = c.id JOIN bet b WHERE date_of_create < expiration_date && expiration_date > NOW() AND winner_id IS NULL GROUP BY l.id ORDER BY b.date DESC";
         $stmt_1 =  db_get_prepare_stmt($con, $lots_sql);
         mysqli_stmt_execute($stmt_1);
         $res = mysqli_stmt_get_result($stmt_1);
