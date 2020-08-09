@@ -58,19 +58,6 @@
     ];
 
     date_default_timezone_set('Europe/Moscow');
-
-    // function connection () {
-    //     $con = mysqli_connect("localhost", "root", "root", "yeticave");
-    //     if ($con == false) {
-    //         echo "Ошибка подключения к БД" . mysqli_connect_error();
-    //         exit();
-    //     }
-    //     else {
-    //         // echo "Подключение прошло успешно";
-    //         mysqli_set_charset($con, "utf8mb4_unicode_ci");
-    //         return $con;
-    //     }
-    // }
     
     $con = connection();
 
