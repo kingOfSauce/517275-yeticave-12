@@ -72,14 +72,14 @@
 
     $lots_list = get_lots($con);
 
-    function get_categories ($con) {
-        $categories_sql = "SELECT * FROM category";
-        $stmt_2 = db_get_prepare_stmt($con, $categories_sql);
-        mysqli_stmt_execute($stmt_2);
-        $res = mysqli_stmt_get_result($stmt_2);
-        $categories_list = mysqli_fetch_all($res, MYSQLI_ASSOC);
-        return $categories_list;
-    }
+    // function get_categories ($con) {
+    //     $categories_sql = "SELECT * FROM category";
+    //     $stmt_2 = db_get_prepare_stmt($con, $categories_sql);
+    //     mysqli_stmt_execute($stmt_2);
+    //     $res = mysqli_stmt_get_result($stmt_2);
+    //     $categories_list = mysqli_fetch_all($res, MYSQLI_ASSOC);
+    //     return $categories_list;
+    // }
 
     $categories_list = get_categories($con);
 

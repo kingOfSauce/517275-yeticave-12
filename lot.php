@@ -27,7 +27,9 @@ if (NULL === $lot) {
     exit();
 }
 
-$lot_main = include_template('lot.php', ['lot' => $lot]);
-$lot_layout = include_template('lot-layout.php', ['lot_main' => $lot_main]);
+$categories = get_categories($con);
+
+$lot_main = include_template('lot.php', ['lot' => $lot, 'categories_list' => $categories]);
+$lot_layout = include_template('layout.php', ['main' => $lot_main, 'categories_list' => $categories, 'title' => $lot['title']]);
 echo $lot_layout;
 ?>
