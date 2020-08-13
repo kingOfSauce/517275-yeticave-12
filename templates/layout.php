@@ -1,7 +1,6 @@
 <?php
 $is_auth = rand(0, 1);
-
-$user_name; // укажите здесь ваше имя
+$user_name = 'Дима';
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -46,11 +45,8 @@ $user_name; // укажите здесь ваше имя
         </nav>
     </div>
 </header>
-
 <main class="container"><?= $main; ?></main>
-
 </div>
-
 <footer class="main-footer">
     <nav class="nav">
         <ul class="nav__list container">
