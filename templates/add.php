@@ -39,7 +39,7 @@
       $errors['file'] = 'Файл не выбран';
     }
     else if (mime_content_type($_FILES['file']) != 'image/png' or mime_content_type($_FILES['file'] != 'image/jpeg')) {
-      // $errors['file'] = 'Тип файла не подходит';
+      $errors['file'] = 'Тип файла не подходит';
     }
     else {
       $file_name = $_FILES['file']['name'];
@@ -47,7 +47,7 @@
       move_uploaded_file($_FILES['file']['tmp_name']. $file_path . $file_name);
     }
   }
-  if (count($errors) == 0) {
+  if (empty($errors)) {
     $con = connection();
     if ($_POST['category'] == 'Крепления') $category_id = 1;
     else if ($_POST['category'] == 'Куртки') $category_id = 2;
@@ -55,9 +55,8 @@
     else if ($_POST['category'] == 'Обувь') $category_id = 4;
     else if ($_POST['category'] == 'Интсрументы') $category_id = 5;
     else if ($_POST['category'] == 'Разное') $category_id = 6;
-    $sql = "INSERT INTO lot (title, description, img, start_price, expiration_date, bet_step, category_id) VALUES ($_POST['lot-name'], $_POST['message'], $file_path, $_POST['lot-rate'], $_POST['lot-date'], $_POST['lot-step], $category_id)";
-    $stmt = db_get_prepare_stmt($con, $sql);
-    //
+    $sql = "INSERT INTO lot (title, description, img, start_price, expiration_date, bet_step, category_id) VALUES ((?), (?), (?), (?), (?), (?), (?))";
+    $stmt = db_get_prepare_stmt($con, $sql, $data=[$_POST['lot-name'], $_POST['message'], $file_path, $_POST['lot-rate'], $_POST['lot-date'], $_POST['lot-step'], $category_id]);
     mysqli_stmt_execute($stmt);
   }
  ?> 
@@ -87,51 +86,51 @@
     <form class="form form--add-lot container<?php echo count($errors) != 0 ? "form--invalid" : "" ?>" action="https://echo.htmlacademy.ru" method="post" enctype="multipart/form-data"> <!-- form--invalid -->
       <h2>Добавление лота</h2>
       <div class="form__container-two">
-        <div class="form__item <?php echo $errors['lot-name'] ? "form__item--invalid" : "" ?> "> <!-- form__item--invalid -->
+        <div class="form__item <?php if ($errors["lot-name"]) {echo "form__item--invalid";}?> "> <!-- form__item--invalid -->
           <label for="lot-name">Наименование<sup>*</sup></label>
           <input id="lot-name" type="text" name="lot-name" placeholder="Введите наименование лота" action="add.php">
-          <span class="form__error"><?= $errors['lot-name'] ?></span>
+          <span class="form__error"><?= $errors["lot-name"] ?></span>
         </div>
-        <div class="form__item <?php echo $errors['category'] ? "form__item--invalid" : "" ?>">
+        <div class="form__item <?php echo $errors["category"] ? "form__item--invalid" : "" ?>">
           <label for="category">Категория <sup>*</sup></label>
           <select id="category" name="category">
           <?php foreach ($categories_list as $category): ?>
-            <option><?= $category['name'] ?></option>
+            <option><?= $category["name"] ?></option>
           <? endforeach; ?>
           </select>
-          <span class="form__error"><?= $errors['category'] ?></span>
+          <span class="form__error"><?= $errors["category"] ?></span>
         </div>
       </div>
-      <div class="form__item form__item--wide <?php echo $errors['message'] ? "form__item--invalid" : "" ?>">
+      <div class="form__item form__item--wide <?php echo $errors["message"] ? "form__item--invalid" : "" ?>">
         <label for="message">Описание <sup>*</sup></label>
         <textarea id="message" name="message" placeholder="Напишите описание лота" action="add.php"></textarea>
-        <span class="form__error"><?= $errors['message'] ?></span>
+        <span class="form__error"><?= $errors["message"] ?></span>
       </div>
-      <div class="form__item form__item--file <?php echo $errors['file'] ? "form__item--invalid" : "" ?>">
+      <div class="form__item form__item--file <?php echo $errors["file"] ? "form__item--invalid" : "" ?>">
         <label>Изображение <sup>*</sup></label>
         <div class="form__input-file">
           <input class="visually-hidden" type="file" id="lot-img" value="" name="file" action="add.php">
           <label for="lot-img">
             Добавить
           </label>
-          <span class="form__error"><?= $errors['file'] ?></span>
+          <span class="form__error"><?= $errors["file"] ?></span>
         </div>
       </div>
       <div class="form__container-three">
-        <div class="form__item form__item--small <?php echo $errors['lot-rate'] ? "form__item--invalid" : "" ?>">
+        <div class="form__item form__item--small <?php echo $errors["lot-rate"] ? "form__item--invalid" : "" ?>">
           <label for="lot-rate">Начальная цена <sup>*</sup></label>
           <input id="lot-rate" type="text" name="lot-rate" placeholder="0" action="add.php">
-          <span class="form__error"><?= $errors['lot-rate'] ?></span>
+          <span class="form__error"><?= $errors["lot-rate"] ?></span>
         </div>
-        <div class="form__item form__item--small <?php echo $errors['lot-step'] ? "form__item--invalid" : "" ?>">
+        <div class="form__item form__item--small <?php echo $errors["lot-step"] ? "form__item--invalid" : "" ?>">
           <label for="lot-step" action="add.php">Шаг ставки <sup>*</sup></label>
           <input id="lot-step" type="text" name="lot-step" placeholder="0" action="add.php">
-          <span class="form__error"><?= $errors['lot-step'] ?></span>
+          <span class="form__error"><?= $errors["lot-step"] ?></span>
         </div>
-        <div class="form__item <?php echo $errors['lot-date'] ? "form__item--invalid" : "" ?>">
+        <div class="form__item <?php echo $errors["lot-date"] ? "form__item--invalid" : "" ?>">
           <label for="lot-date">Дата окончания торгов <sup>*</sup></label>
           <input class="form__input-date" id="lot-date" type="text" name="lot-date" placeholder="Введите дату в формате ГГГГ-ММ-ДД" action="add.php">
-          <span class="form__error"><?= $errors['lot-date'] ?></span>
+          <span class="form__error"><?= $errors["lot-date"] ?></span>
         </div>
       </div>
       <span class="form__error form__error--bottom">Пожалуйста, исправьте ошибки в форме.</span>
