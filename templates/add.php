@@ -9,7 +9,7 @@
     return $data;
   }
 
-  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  if ($_SERVER['REQUEST_METHOD'] == 'POST' and $_POST["submit"]) {
     foreach ($required_fields as $field) {
       if (empty($_POST[$field])) {
         $errors[$field] = 'Поле не заполнено';
@@ -46,7 +46,7 @@
       $file_path = __DIR__ . '/uploades';
       move_uploaded_file($_FILES['file']['tmp_name']. $file_path . $file_name);
     }
-  }
+  
   if (empty($errors)) {
     $con = connection();
     if ($_POST['category'] == 'Крепления') $category_id = 1;
@@ -59,6 +59,7 @@
     $stmt = db_get_prepare_stmt($con, $sql, $data=[$_POST['lot-name'], $_POST['message'], $file_path, $_POST['lot-rate'], $_POST['lot-date'], $_POST['lot-step'], $category_id]);
     mysqli_stmt_execute($stmt);
   }
+}
  ?> 
  <main>
     <nav class="nav">
@@ -134,7 +135,7 @@
         </div>
       </div>
       <span class="form__error form__error--bottom">Пожалуйста, исправьте ошибки в форме.</span>
-      <button type="submit" class="button">Добавить лот</button>
+      <button type="submit" class="button" name="submit">Добавить лот</button>
     </form>
   </main>
 </div>
