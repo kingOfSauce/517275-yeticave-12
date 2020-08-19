@@ -35,4 +35,20 @@ function get_categories ($con) {
     $categories_list = mysqli_fetch_all($res, MYSQLI_ASSOC);
     return $categories_list;
 }
+
+function test_input($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+  }
+
+  function readPOST($key) {
+      if (isset($_POST[$key])) {
+          return $_POST[$key];
+      }
+      else {
+          return NULL;
+      };
+  }
 ?>

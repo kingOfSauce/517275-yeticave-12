@@ -1,66 +1,3 @@
- <?php
-  $required_fields = ['lot-name', 'category', 'message', 'lot-rate', 'lot-step', 'lot-date', 'file'];
-  $erros = array();
-
-  function test_input($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-  }
-
-  if ($_SERVER['REQUEST_METHOD'] == 'POST' and $_POST["submit"]) {
-    foreach ($required_fields as $field) {
-      if (empty($_POST[$field])) {
-        $errors[$field] = 'Поле не заполнено';
-      }
-      else {
-        $_POST[$field] = test_input($field);
-      }
-    }
-    if (strlen($_POST['lot-name'] <= 0 or $_POST['lot-name'] > 50)) {
-      $errors['lot-name'] = 'Длина имени лота должна быть от 0 до 50 символов';
-    }
-    if (is_date_valid($_POST['lot-date']) == false) {
-      $errors['lot-date'] = 'неверный формат даты';
-    } 
-    else if (strtotime($_POST['lot-date'] < strtotime("now"))) {
-    }
-    if (empty($_POST['file'])) {
-      $errors['file'] = 'Файл не выбран';
-    }
-    if (!is_int($_POST['lot-rate']) and $_POST['lot-rate'] <= 0) {
-      $errors['lot-rate'] = 'Введите целое число больше нуля';
-    }
-    if (!is_int($_POST['lot-step']) and $_POST['lot-rate'] <= 0) {
-      $errors['lot-rate'] = 'Введите целое число больше нуля';
-    }
-    if (empty($_FILES)) {
-      $errors['file'] = 'Файл не выбран';
-    }
-    else if (mime_content_type($_FILES['file']) != 'image/png' or mime_content_type($_FILES['file'] != 'image/jpeg')) {
-      $errors['file'] = 'Тип файла не подходит';
-    }
-    else {
-      $file_name = $_FILES['file']['name'];
-      $file_path = __DIR__ . '/uploades';
-      move_uploaded_file($_FILES['file']['tmp_name']. $file_path . $file_name);
-    }
-  
-  if (empty($errors)) {
-    $con = connection();
-    if ($_POST['category'] == 'Крепления') $category_id = 1;
-    else if ($_POST['category'] == 'Куртки') $category_id = 2;
-    else if ($_POST['category'] == 'Доски и лыжи') $category_id = 3;
-    else if ($_POST['category'] == 'Обувь') $category_id = 4;
-    else if ($_POST['category'] == 'Интсрументы') $category_id = 5;
-    else if ($_POST['category'] == 'Разное') $category_id = 6;
-    $sql = "INSERT INTO lot (title, description, img, start_price, expiration_date, bet_step, category_id) VALUES ((?), (?), (?), (?), (?), (?), (?))";
-    $stmt = db_get_prepare_stmt($con, $sql, $data=[$_POST['lot-name'], $_POST['message'], $file_path, $_POST['lot-rate'], $_POST['lot-date'], $_POST['lot-step'], $category_id]);
-    mysqli_stmt_execute($stmt);
-  }
-}
- ?> 
  <main>
     <nav class="nav">
       <ul class="nav__list container">
@@ -84,10 +21,10 @@
         </li>
       </ul>
     </nav>
-    <form class="form form--add-lot container<?php echo count($errors) != 0 ? "form--invalid" : "" ?>" action="https://echo.htmlacademy.ru" method="post" enctype="multipart/form-data"> <!-- form--invalid -->
+    <form class="form form--add-lot container<?php echo count($errors) != 0 ? "form--invalid" : "" ?>" action="add.php" method="POST" enctype="multipart/form-data"> <!-- form--invalid -->
       <h2>Добавление лота</h2>
       <div class="form__container-two">
-        <div class="form__item <?php if ($errors["lot-name"]) {echo "form__item--invalid";}?> "> <!-- form__item--invalid -->
+        <div class="form__item <?php if ($errors["lot-name"]) {echo "form__item--invalid";}?> ">
           <label for="lot-name">Наименование<sup>*</sup></label>
           <input id="lot-name" type="text" name="lot-name" placeholder="Введите наименование лота" action="add.php">
           <span class="form__error"><?= $errors["lot-name"] ?></span>
