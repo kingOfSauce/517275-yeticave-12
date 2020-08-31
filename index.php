@@ -1,6 +1,6 @@
 <?php
-    include_once ('helpers.php');
-    include_once ('functions.php');
+    // require_once ('helpers.php');
+    // require_once ('functions.php');
     function format_price ($num) {
         $num = ceil($num);
         if ($num < 1000) {

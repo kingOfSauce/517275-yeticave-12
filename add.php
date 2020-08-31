@@ -1,6 +1,8 @@
 <?php
+    require_once ('helpers.php');
+    require_once ('functions.php');
     $required_fields = ['lot-name', 'category', 'message', 'lot-rate', 'lot-step', 'lot-date'];
-    $erros = array();
+    $errors = array();
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST["submit"])) {
         foreach ($required_fields as $field) {
             if (readPOST($field) == false) {
@@ -10,7 +12,7 @@
             $_POST[$field] = test_input($field);
             }
         }
-        $name = readPOST('name');
+        $name = readPOST('lot-name');
         $category = readPOST('category');
         $message = readPOST('message');
         $lot_rate = readPOST('lot-rate');
@@ -22,21 +24,30 @@
             }
         }
         if (null !== $lot_date) {
-            if (is_date_valid($lot_date) == false) {
+            if (false === is_date_valid($lot_date)) {
                 $errors['lot-date'] = 'Неверный формат даты';
             } 
             else if (strtotime($lot_date) < strtotime("now")) {
             }
         }   
         if (null !== $lot_rate) {
-            if (!is_int($lot_rate) && $lot_rate <= 0) {
+            if (!is_int($lot_rate) || $lot_rate <= 0) {
                 $errors['lot-rate'] = 'Введите целое число больше нуля';
             }
         }
         if (null !== $lot_step) {
-            if (!is_int($lot_step) && $lot_step <= 0) {
+            if (!is_int($lot_step) || $lot_step <= 0) {
                 $errors['lot-step'] = 'Введите целое число больше нуля';
             }
+        }
+        if (!isset($_FILES['file'])) {
+            $errors['file'] = 'Файл не выбран';
+        } else if (mime_content_type($_FILES['file']) != 'image/png' || mime_content_type($_FILES['file'] != 'image/jpeg')) {
+            $errors['file'] = 'Тип файла не подходит';
+        } else {
+            $file_name = $_FILES['file']['name'];
+            $file_path = __DIR__ . '/uploads';
+            move_uploaded_file($_FILES['file']['tmp_name']. $file_path . $file_name);
         }
         if (empty($errors)) {
         $con = connection();
@@ -52,9 +63,6 @@
         mysqli_stmt_execute($stmt);
         }
     }
-
-    require ('helpers.php');
-    require ('functions.php');
     $con = connection();
     $categories_list = get_categories($con);
     $content = include_template('add.php', ['categories_list' => $categories_list]);
