@@ -27,7 +27,14 @@
             if (false === is_date_valid($lot_date)) {
                 $errors['lot-date'] = 'Неверный формат даты';
             } 
-            else if (strtotime($lot_date) < strtotime("now")) {
+            else {
+                $time_1 = strtotime("now");
+                $time_2 - strtotime($lot_date);
+                $time_result = $time_2 - $time_1;
+                $sutki = 86400;
+                if ($time_result < $sutki) {
+                    $errors['lot-date'] = 'Указанная дата должна быть больше текущей даты, хотя бы на один день';
+                }
             }
         }   
         if (null !== $lot_rate) {
@@ -59,7 +66,7 @@
         else if ($category == 'Разное') $category_id = 6;
         else $errors['category'] = 'Выбранная категория не существует';
         $sql = "INSERT INTO lot (title, description, img, start_price, expiration_date, bet_step, category_id) VALUES ((?), (?), (?), (?), (?), (?), (?))";
-        $stmt = db_get_prepare_stmt($con, $sql, $data=[$_POST['lot-name'], $_POST['message'], $file_path, $_POST['lot-rate'], $_POST['lot-date'], $_POST['lot-step'], $category_id]);
+        $stmt = db_get_prepare_stmt($con, $sql, $data=[$name, $message, $file_path, $lot_rate, $lot_date, $lot_step, $category_id]);
         mysqli_stmt_execute($stmt);
         }
     }

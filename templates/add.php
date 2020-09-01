@@ -13,7 +13,7 @@
       <div class="form__container-two">
         <div class="form__item <?= $errors["lot-name"] ? "form__item--invalid" : ""; ?>">
           <label for="lot-name">Наименование<sup>*</sup></label>
-          <input id="lot-name" type="text" name="lot-name" placeholder="Введите наименование лота">
+          <input id="lot-name" type="text" name="lot-name" placeholder="Введите наименование лота" value = "<?php if(isset($_POST['submit']) && isset($_POST['lot-name'])) {echo $_POST['lot-name'];} else {echo 'лох';} ?>">
           <span class="form__error"><?= $errors["lot-name"] ?></span>
         </div>
         <div class="form__item <?= $errors["category"] ? "form__item--invalid" : ""; ?>">
@@ -44,7 +44,7 @@
       <div class="form__container-three">
         <div class="form__item form__item--small <?= $errors["lot-rate"] ? "form__item--invalid" : ""; ?>">
           <label for="lot-rate">Начальная цена <sup>*</sup></label>
-          <input id="lot-rate" type="text" name="lot-rate" placeholder="0">
+          <input id="lot-rate" type="text" name="lot-rate" placeholder="0" value = "<?= isset($_POST['lot-rate']) ? readPOST("lot-rate") : "ничего"; ?>">
           <span class="form__error"><?= $errors["lot-rate"] ?></span>
         </div>
         <div class="form__item form__item--small <?= $errors["lot-step"] ? "form__item--invalid" : ""; ?>">
