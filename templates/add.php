@@ -13,14 +13,14 @@
       <div class="form__container-two">
         <div class="form__item <?= $errors["lot-name"] ? "form__item--invalid" : ""; ?>">
           <label for="lot-name">Наименование<sup>*</sup></label>
-          <input id="lot-name" type="text" name="lot-name" placeholder="Введите наименование лота" value = "<?php if(isset($_POST['submit']) && isset($_POST['lot-name'])) {echo $_POST['lot-name'];} else {echo 'лох';} ?>">
+          <input id="lot-name" type="text" name="lot-name" placeholder="Введите наименование лота" value = "<?= readPOST('lot-name') ?>">
           <span class="form__error"><?= $errors["lot-name"] ?></span>
         </div>
         <div class="form__item <?= $errors["category"] ? "form__item--invalid" : ""; ?>">
           <label for="category">Категория <sup>*</sup></label>
           <select id="category" name="category">
           <?php foreach ($categories_list as $category): ?>
-            <option value = "<?= $category["id"] ?>"><?= $category["name"] ?></option>
+            <option value = "<?= $category["id"] ?>"><?= $category['name'] ?></option>
           <? endforeach; ?>
           </select>
           <span class="form__error"><?= $errors["category"] ?></span>
@@ -44,7 +44,7 @@
       <div class="form__container-three">
         <div class="form__item form__item--small <?= $errors["lot-rate"] ? "form__item--invalid" : ""; ?>">
           <label for="lot-rate">Начальная цена <sup>*</sup></label>
-          <input id="lot-rate" type="text" name="lot-rate" placeholder="0" value = "<?= isset($_POST['lot-rate']) ? readPOST("lot-rate") : "ничего"; ?>">
+          <input id="lot-rate" type="text" name="lot-rate" placeholder="0" value = "">
           <span class="form__error"><?= $errors["lot-rate"] ?></span>
         </div>
         <div class="form__item form__item--small <?= $errors["lot-step"] ? "form__item--invalid" : ""; ?>">

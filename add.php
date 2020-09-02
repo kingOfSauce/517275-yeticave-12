@@ -9,7 +9,7 @@
             $errors[$field] = 'Поле не заполнено';
             }
             else {
-            $_POST[$field] = test_input($field);
+            $_POST[$field] = test_input($_POST[$field]);
             }
         }
         $name = readPOST('lot-name');
@@ -18,6 +18,15 @@
         $lot_rate = readPOST('lot-rate');
         $lot_step = readPOST('lot-step');
         $lot_date = readPOST('lot-date');
+
+        // $name = getPostVal('lot-name');
+        // $category = getPostVal('category');
+        // $message = getPostVal('message');
+        // $lot_rate = getPostVal('lot-rate');
+        // $lot_step = getPostVal('lot-step');
+        // $lot_date = getPostVal('lot-date');
+        // echo $category;
+        print_r($_POST);
         if (null !== $name) {
                 if (mb_strlen($name) <= 0 || mb_strlen($name) > 50) {
                     $errors['lot-name'] = 'Длина имени лота должна быть от 0 до 50 символов';
@@ -29,8 +38,8 @@
             } 
             else {
                 $time_1 = strtotime("now");
-                $time_2 - strtotime($lot_date);
-                $time_result = $time_2 - $time_1;
+                $exp_stamp - strtotime("11-12-10");
+                $time_result = $exp_stamp - $time_1;
                 $sutki = 86400;
                 if ($time_result < $sutki) {
                     $errors['lot-date'] = 'Указанная дата должна быть больше текущей даты, хотя бы на один день';
@@ -58,15 +67,15 @@
         }
         if (empty($errors)) {
         $con = connection();
-        if ($category == 'Крепления') $category_id = 1;
-        else if ($category == 'Куртки') $category_id = 2;
-        else if ($category == 'Доски и лыжи') $category_id = 3;
-        else if ($category == 'Обувь') $category_id = 4;
-        else if ($category == 'Интсрументы') $category_id = 5;
-        else if ($category == 'Разное') $category_id = 6;
-        else $errors['category'] = 'Выбранная категория не существует';
+        // if ($category == 'Крепления') $category_id = 1;
+        // else if ($category == 'Куртки') $category_id = 2;
+        // else if ($category == 'Доски и лыжи') $category_id = 3;
+        // else if ($category == 'Обувь') $category_id = 4;
+        // else if ($category == 'Интсрументы') $category_id = 5;
+        // else if ($category == 'Разное') $category_id = 6;
+        // else $errors['category'] = 'Выбранная категория не существует';
         $sql = "INSERT INTO lot (title, description, img, start_price, expiration_date, bet_step, category_id) VALUES ((?), (?), (?), (?), (?), (?), (?))";
-        $stmt = db_get_prepare_stmt($con, $sql, $data=[$name, $message, $file_path, $lot_rate, $lot_date, $lot_step, $category_id]);
+        $stmt = db_get_prepare_stmt($con, $sql, $data=[$name, $message, $file_path, $lot_rate, $lot_date, $lot_step, $category]);
         mysqli_stmt_execute($stmt);
         }
     }

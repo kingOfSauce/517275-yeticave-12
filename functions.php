@@ -42,10 +42,14 @@ function test_input($data) {
 
   function readPOST($key) {
       if (isset($_POST[$key]) && $_POST[$key]) {
-          return $_POST[$key];
+        return $_POST[$key];
       }
       else {
           return NULL;
       };
   }
+
+//   function getPostVal($name) {
+//           return $_POST[$name] ?? "";
+// }
 ?>
