@@ -20,7 +20,7 @@
           <label for="category">Категория <sup>*</sup></label>
           <select id="category" name="category">
           <?php foreach ($categories_list as $category): ?>
-            <option value = "<?= $category["name"] ?>"><?= $category["name"] ?></option>
+            <option value = "<?= $category["id"] ?>"><?= $category["name"] ?></option>
           <? endforeach; ?>
           </select>
           <span class="form__error"><?= $errors["category"] ?></span>
