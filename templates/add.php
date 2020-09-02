@@ -65,7 +65,7 @@
 </div>
 
 <?php 
-  if (empty($errors)) {
-    header("Location: lot.php?id=2");
-  }
+  //if (empty($errors)) {
+    //header("Location: lot.php?id=2");
+  //}
  ?>

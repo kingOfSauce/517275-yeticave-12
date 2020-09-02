@@ -68,8 +68,6 @@
                 move_uploaded_file($_FILES['file']['tmp_name'], 'uploads/' . $_FILES['file']['name']);
             }
         }
-        print_r ($_POST);
-        print_r ($_FILES);
         if (empty($errors)) {
         $con = connection();
         // if ($category == 'Крепления') $category_id = 1;
@@ -85,7 +83,6 @@
         } else {
             print_r($errors);
         }
-        print_r($errors);
     }
     $con = connection();
     $categories_list = get_categories($con);
