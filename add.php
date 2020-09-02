@@ -64,8 +64,8 @@
             if ($file_type !== 'image/png') {
                 $errors['file'] = 'Загрузите картинку в нужном формате';
             } else {
-                $file_path = 'uploads/';
-                move_uploaded_file($_FILES['file']['tmp_name'], 'uploads/' . $_FILES['file']['name']);
+                $file_path = 'uploads/' . $_FILES['file']['name'];
+                move_uploaded_file($_FILES['file']['tmp_name'], $file_path);
             }
         }
         if (empty($errors)) {
