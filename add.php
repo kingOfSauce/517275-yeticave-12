@@ -15,20 +15,11 @@
         $name = readPOST('lot-name');
         $category = readPOST('category');
         $message = readPOST('message');
-        $lot_rate = readPOST('lot-rate');
-        $lot_step = readPOST('lot-step');
+        $lot_rate = (int)readPOST('lot-rate');
+        $lot_step = (int)readPOST('lot-step');
         $lot_date = readPOST('lot-date');
-
-        // $name = getPostVal('lot-name');
-        // $category = getPostVal('category');
-        // $message = getPostVal('message');
-        // $lot_rate = getPostVal('lot-rate');
-        // $lot_step = getPostVal('lot-step');
-        // $lot_date = getPostVal('lot-date');
-        // echo $category;
-        print_r($_POST);
         if (null !== $name) {
-                if (mb_strlen($name) <= 0 || mb_strlen($name) > 50) {
+                if (strlen($name) <= 0 || strlen($name) > 10) {
                     $errors['lot-name'] = 'Длина имени лота должна быть от 0 до 50 символов';
             }
         }
@@ -38,7 +29,7 @@
             } 
             else {
                 $time_1 = strtotime("now");
-                $exp_stamp - strtotime("11-12-10");
+                $exp_stamp = strtotime($lot_date);
                 $time_result = $exp_stamp - $time_1;
                 $sutki = 86400;
                 if ($time_result < $sutki) {
@@ -56,15 +47,29 @@
                 $errors['lot-step'] = 'Введите целое число больше нуля';
             }
         }
-        if (!isset($_FILES['file'])) {
-            $errors['file'] = 'Файл не выбран';
-        } else if (mime_content_type($_FILES['file']) != 'image/png' || mime_content_type($_FILES['file'] != 'image/jpeg')) {
-            $errors['file'] = 'Тип файла не подходит';
-        } else {
-            $file_name = $_FILES['file']['name'];
-            $file_path = __DIR__ . '/uploads';
-            move_uploaded_file($_FILES['file']['tmp_name']. $file_path . $file_name);
+        // if (!isset($_FILES['file'])) {
+        //     $errors['file'] = 'Файл не выбран';
+        // } else if (mime_content_type($_FILES['file']) != 'image/png' || mime_content_type($_FILES['file'] != 'image/jpeg')) {
+        //     $errors['file'] = 'Тип файла не подходит';
+        // } else {
+        //     $file_name = $_FILES['file']['name'];
+        //     $file_path = __DIR__ . '/uploads';
+        //     move_uploaded_file($_FILES['file']['tmp_name']. $file_path . $file_name);
+        // }
+        if (isset($_FILES['file'])) {
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $file_name = $_FILES['file']['tmp_name'];
+            $file_size = $_FILES['file']['size'];
+            $file_type = finfo_file($finfo, $file_name);
+            if ($file_type !== 'image/png') {
+                $errors['file'] = 'Загрузите картинку в нужном формате';
+            } else {
+                $file_path = 'uploads/';
+                move_uploaded_file($_FILES['file']['tmp_name'], 'uploads/' . $_FILES['file']['name']);
+            }
         }
+        print_r ($_POST);
+        print_r ($_FILES);
         if (empty($errors)) {
         $con = connection();
         // if ($category == 'Крепления') $category_id = 1;
@@ -77,11 +82,14 @@
         $sql = "INSERT INTO lot (title, description, img, start_price, expiration_date, bet_step, category_id) VALUES ((?), (?), (?), (?), (?), (?), (?))";
         $stmt = db_get_prepare_stmt($con, $sql, $data=[$name, $message, $file_path, $lot_rate, $lot_date, $lot_step, $category]);
         mysqli_stmt_execute($stmt);
+        } else {
+            print_r($errors);
         }
+        print_r($errors);
     }
     $con = connection();
     $categories_list = get_categories($con);
-    $content = include_template('add.php', ['categories_list' => $categories_list]);
+    $content = include_template('add.php', ['categories_list' => $categories_list, 'errors' => $errors]);
     $page = include_template('layout.php', ['main' => $content, 'title' => 'Добавление лота', 'categories_list' => $categories_list]);
     echo $page;
 ?>
