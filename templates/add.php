@@ -63,9 +63,3 @@
     </form>
   </main>
 </div>
-
-<?php 
-  //if (empty($errors)) {
-    //header("Location: lot.php?id=2");
-  //}
- ?>
