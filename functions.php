@@ -48,8 +48,4 @@ function test_input($data) {
           return NULL;
       };
   }
-
-//   function getPostVal($name) {
-//           return $_POST[$name] ?? "";
-// }
 ?>
