@@ -21,7 +21,7 @@
           <select id="category" name="category">
           <?php foreach ($categories_list as $category): ?>
             <option value = "<?= $category["id"] ?>"><?= $category['name'] ?></option>
-          <? endforeach; ?>
+          <?php endforeach; ?>
           </select>
           <span class="form__error"><?= $errors["category"] ?></span>
         </div>
