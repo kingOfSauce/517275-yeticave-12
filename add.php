@@ -1,7 +1,7 @@
 <?php
     require_once ('helpers.php');
     require_once ('functions.php');
-    $required_fields = ["lot-name", 'category', 'message', 'lot-rate', 'lot-step', 'lot-date'];
+    $required_fields = ['lot-name', 'category', 'message', 'lot-rate', 'lot-step', 'lot-date'];
     $errors = array();
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST["submit"])) {
         error_reporting(E_ALL);
@@ -11,12 +11,9 @@
             if (readPOST($field) == NULL) {
             $errors[$field] = 'Поле не заполнено';
             }
-            else {
-                $errors[$field] = NULL;
-            }
         }
         $name = readPOST('lot-name');
-        $category = readPOST('category');
+        $category = (int)readPOST('category');
         $message = readPOST('message');
         $lot_rate = (int)readPOST('lot-rate');
         $lot_step = (int)readPOST('lot-step');
@@ -62,18 +59,20 @@
                 move_uploaded_file($_FILES['file']['tmp_name'], $file_path);
             }
         }
-        for($i = 1; $i <= 6; $i++) {
-            if ($category == $i) {
-                $errors['category'] = '';
-                break;
-            }
-            else {
-                $errors['category'] = 'Выбранная категория не существует';
+        if ($category !== 1) {
+            if ($category !== 2) {
+                if ($category !== 3) {
+                    if ($category !== 4) {
+                        if ($category !== 5) {
+                            if ($category !== 6) {
+                                    $errors['category'] = 'Выбранная категория не существует';
+                            }
+                        }
+                    }
+                }
             }
         }
-        
-        // $_GET['category_id'] = 3;
-        if (empty($errors)) {
+        if (count($errors) == 0) {
         $con = connection();
         $file_path = 'uploads/' . $_FILES['file']['name'];
         $sql = "INSERT INTO lot (title, description, img, start_price, expiration_date, bet_step, category_id) VALUES ((?), (?), (?), (?), (?), (?), (?))";
@@ -81,10 +80,7 @@
         mysqli_stmt_execute($stmt);
         //Редирект, если нет ошибок
         $last_id = mysqli_insert_id($con);
-        // $result = mysqli_query($con, $sql_for_id);
-        // $rows = mysqli_fetch_assoc($result);
-        // $new_lot_id = $rows['MAX(`id`)'];
-        // header("Location: lot.php?id=".$last_id);
+        header("Location: lot.php?id=".$last_id);
         exit ();
         }
     }

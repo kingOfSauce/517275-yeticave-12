@@ -1,6 +1,4 @@
  <main> 
-    <?= isset($errors['lot-step'])?>
-    <?php print_r($errors); ?>
     <nav class="nav">
       <ul class="nav__list container">
       <?php foreach ($categories_list as $category): ?>
@@ -10,7 +8,7 @@
       <?php endforeach; ?>
       </ul>
     </nav>
-    <form class="form form--add-lot container <?= isset($errors) ? "form--invalid" : ''; ?>" action="add.php" method="POST" enctype="multipart/form-data">
+    <form class="form form--add-lot container <?= $errors ? "form--invalid" : ''; ?>" action="add.php" method="POST" enctype="multipart/form-data">
       <h2>Добавление лота</h2>
       <div class="form__container-two">
         <div class="form__item <?= isset($errors["lot-name"]) ? "form__item--invalid" : ""; ?>">
@@ -60,7 +58,7 @@
           <span class="form__error"><?= isset($errors["lot-date"]) ? $errors["lot-date"] : ""?></span>
         </div>
       </div>
-      <span class="form__error form__error--bottom"><?= $errors ? "" : "Пожалуйста, исправьте ошибки в форме."; ?></span>
+      <span class="form__error form__error--bottom"><?= $errors ? "Пожалуйста, исправьте ошибки в форме." : ""; ?></span>
       <button type="submit" class="button" name="submit">Добавить лот</button>
     </form>
   </main>
