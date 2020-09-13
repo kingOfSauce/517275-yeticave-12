@@ -48,9 +48,3 @@ function get_categories ($con) {
           return NULL;
       };
   }
-
-  function clearing_user_input ($data) {
-      $data = strip_tags($data);
-      $data = htmlspecialchars($data);
-      return $data;
-  }
