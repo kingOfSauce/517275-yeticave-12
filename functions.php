@@ -35,21 +35,22 @@ function get_categories ($con) {
     return $categories_list;
 }
 
-function test_input($data) {
-    $data = trim($data);
-    return $data;
-  }
-
   function readPOST($key) {
       if (isset($_POST[$key]) && $_POST[$key]) {
-        return $_POST[$key];
+        trim ($_POST[$key]);
+        if (empty($_POST[$key])) {
+            return NULL;
+        } else {
+            return $_POST[$key];
+        }
       }
       else {
           return NULL;
       };
   }
 
-//   function getPostVal($name) {
-//           return $_POST[$name] ?? "";
-// }
-?>
+  function clearing_user_input ($data) {
+      $data = strip_tags($data);
+      $data = htmlspecialchars($data);
+      return $data;
+  }
